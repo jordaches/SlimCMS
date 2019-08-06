@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog Page</title>
+    <link rel="stylesheet" href="{{ base_url() }}/public/assets/css/bootstrap.min.css">
+    <script src="{{ base_url() }}/public/assets/js/jquery-3.2.1.min.js"></script>
+    <script src="{{ base_url() }}/public/assets/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{{ base_url() }}/public/assets/css/publicstyles.css">
+    <!-- <link rel="stylesheet" href="css/custom.css"> -->
+    <title>{% block title %}{% endblock %}</title>
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+<div style="height: 10px; background-image: linear-gradient(#27AAE1,white);">
+</div>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse">
+                <!-- This creates the button on collapse -->
+                <span class="sr-only">Toggle Navigation</span>
+                <span class="glyphicon icon-bar"></span>
+                <span class="glyphicon icon-bar"></span>
+                <span class="glyphicon icon-bar"></span>
+                <span class="glyphicon icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ path_for('blog.index') }}">
+                <img style="margin-top: -15px;" src="{{ base_url() }}/public/assets/images/ExchangeSA.PNG" width="180">
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="collapse"> <!-- These are the items to collapse -->
+            <ul class="nav navbar-nav">
+                <li><a href="#">&nbsp;Home</a></li>
+                <li class="active"><a href="{{ path_for('blog.index') }}">&nbsp;Blog</a></li>
+                <li><a href="#">&nbsp;About Us</a></li>
+                <li><a href="#">&nbsp;Services</a></li>
+                <li><a href="#">&nbsp;Contact Us</a></li>
+                <li><a href="#">&nbsp;Feature</a></li>
+            </ul>
+            <form action="{{ path_for('blog.search') }}" method="post" class="navbar-form navbar-right">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Look for a post" name="search">
+                </div>
+                <button class="btn btn-default" name="SearchButton">Go</button>
+            </form>
+        </div> <!-- End collapsable items -->
+    </div>
+</nav> <!-- Nav Bar End-->
+<div style="margin-top: -20px; padding-top: 0; height: 10px; background-image: linear-gradient(white,#27AAE1);">
+</div>
+<div class="container">
+    <div class="blog-header">
+        <h1> The Complete Responsive CMS Blog</h1>
+        <p class="lead">Lorem ipsum dolor sit amet.</p>
+    </div>
+    <div class="row">
+        {% block body %}
+        {% endblock %}
+        <div class="col-sm-offset-1 col-sm-3">
+            <div class="">
+                <h2 style="text-align: center">About me</h2>
+                <a href="{{ path_for('dashboard.index') }}"><img class="img-responsive img-circle imageicon" src="{{ base_url() }}/public/assets/images/User-Circle.png"/></a>
+                <br>
+                <p> I love doing shit... It's my speciality :)</p>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Categories</h2>
+                    </div>
+                    <div class="panel-body">
+                        {% block panel %}
+                        {% endblock %}
+
+                    </div>
+                    <div class="panel-footer">
+
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Recent Posts</h2>
+                    </div>
+                    <div class="panel-body">
+                        {% block lastpostpanel %}
+                        {% endblock %}
+                    </div>
+                    <div class="panel-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- Row End-->
+</div> <!-- Container End-->
+
+<br>
+<div style="height: 1.5em; background: #27AAE1"> <!-- Pretty Footer Blue -->
+    <div id="footer" style="padding: 20px 20px 0px;">
+        <hr>
+        <p>
+            Copyright Exchange SA&trade; | &copy; 2019 --- All rights reserved.
+        </p>
+        <a style="color: white; text-decoration: none;cursor: pointer; font-weight: bolder" href="#">Test</a>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus iure laudantium neque reiciendis? Facilis in Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, tempora. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, fugit.
+        </p>
+        <hr>
+    </div> <!-- End of Footer-->
+    <div style="height: 1.5em; background: #27AAE1">
+
+    </div>
+</div><!-- Pretty Footer Blue -->
+{% block script %}
+{% endblock %}
+</body>
+</html>

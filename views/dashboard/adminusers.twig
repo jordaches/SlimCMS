@@ -1,0 +1,158 @@
+{% extends 'layouts/main.twig' %}
+
+{% block title %}
+{% endblock %}
+
+{% block body %}
+    <div class="modal registerModal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title text-center" id="myModalLabel">User Registration</h4>
+                </div>
+                <form action="{{ path_for('admins.add') }}" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3"><label for="fname">First Name:</label></div>
+                                <div class="col-md-9"><input type="text" name="fname" class="form-control" id="fname" placeholder="Your First name"></div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-3"><label for="sname">Last Name:</label></div>
+                                <div class="col-md-9"><input type="text" name="sname" class="form-control" id="sname" placeholder="Your Last name"></div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-3"><label for="email">Email:</label></div>
+                                <div class="col-md-9"><input type="email" name="email" class="form-control" id="email" placeholder="Your email **This should be unique**"></div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-3"><label for="password">Password:</label></div>
+                                <div class="col-md-9"><input type="password" name="password" class="form-control" id="password" placeholder="Your password"></div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-3"><label for="password_confirmation">Confirm Password:</label></div>
+                                <div class="col-md-9"><input type="password" name="password_confirmation" class="form-control" id="password_confirmation" placeholder="Confirm your password"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal registerModal" id="resetModal" tabindex="-1" role="dialog" aria-labelledby="myModalrest">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title text-center" id="myModalLabel">Reset Password</h4>
+                </div>
+                <form action="{{ path_for('admins.reset') }}" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3"><label for="password">Password:</label></div>
+                                <div class="col-md-9"><input type="password" name="password" class="form-control" id="password" placeholder="Your password"></div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-3"><label for="password_confirmation">Confirm Password:</label></div>
+                                <div class="col-md-9"><input type="password" name="password_confirmation" class="form-control" id="password_confirmation" placeholder="Confirm your password"></div>
+                            </div>
+                        </div>
+                        <input class="hidden" name="userid" id="userid" type="text" value="">
+                        <input class="hidden" name="testing" id="test" type="text" value="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-10">
+        <h1>Manage Admins</h1>
+        <div>
+        </div>
+        <h5 style="font-weight: bold;">Current Admins</h5>
+        <table class="table table-hover table-striped">
+            <tr>
+                <td>Id</td>
+                <td>Display Name</td>
+                <td>Username</td>
+                <td>Email Add.</td>
+                <td>Added By</td>
+                <td>Date|Time</td>
+                <td>Actions</td>
+            </tr>
+            {% for u in data  %}
+                <tr>
+                    <td>{{ u.id }}</td>
+                    <td>{{ u.displayname }}</td>
+                    <td>{{ u.username }}</td>
+                    <td>{{ u.email }}</td>
+                    <td>{{ u.addedby }}</td>
+                    <td>{{ u.datetime }}</td>
+                    <td>
+                        <a href="{{ path_for('admins.delete', {id: u.id}) }}"><span class="btn btn-xs btn-danger">Delete</span></a>
+                        <a class="reset" href="#" data-target="#resetModal" data-toggle="modal" data-id="{{ u.id }}" data-id2="{{ u.displayname }}"><span class="btn btn-xs btn-info">Reset Password</span></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <div class="text-left">
+            <a href="" class="btn btn-default btn-rounded mb-4 btn-primary" data-toggle="modal" data-target="#registerModal">Add new user</a>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+    <script>
+        $(document).on("click", ".reset", function() {
+            var ids = $(this).attr('data-id'); //Get value from 'data-id'
+            $("#userid").val(ids); // Set value of id:userid to val(ids)
+            var name = $(this).attr('data-id2'); //Get value from 'val'
+            $("#test").val(name); // Set value of id:userid to val(ids)
+        });
+
+        function showToast(type,title,message) {
+            toastr[type](`${message}`, `${title}`);
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": true,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": close(),
+                "showDuration": "0",
+                "hideDuration": "0",
+                "timeOut": "0",
+                "extendedTimeOut": "0",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
+        {% for e in messages.error %}
+        showToast('error', '', '{{ e }}');
+        {% endfor %}
+        {% for s in messages.success %}
+        showToast('success', '', '{{ s }}');
+        {% endfor %}
+        //showToast('warning', '', 'This is some messagre');
+
+        $(document).ready(function(){
+            $("#admins").addClass("active");
+        });
+
+    </script>
+{% endblock %}

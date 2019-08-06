@@ -1,0 +1,79 @@
+{% extends 'layouts/blogmain.twig' %}
+
+{% block title %}Full Post{% endblock %}
+
+{% block body %}
+    <div class="col-sm-8">
+        <div class="blogpost thumbnail">
+            <img class='img-responsive img-rounded' src="{{ base_url() }}/public/assets/uploads/{{ data.image }}">
+            <div class="caption">
+                <h1 id="heading">{{ data.title }}</h1>
+                <p class="description">
+                    <strong>Category:</strong>
+                    {{ data.category }} |
+                    <strong>Published On:</strong> {{ data.datetime }} |
+                    <strong>Author: </strong>{{ data.author }}
+                </p>
+                <p class="post">
+                    {{ data.post }}
+                </p>
+            </div>
+        </div>
+        <div>
+
+            <br><br>
+            <h3><span class="FieldInfo">Comments</span></h3>
+            <br>
+            {% for c in  comments %}
+            <div class="testing">
+                <p>
+                    <img class="pull-left" src="{{ base_url() }}/public/assets/images/User-Circle.png" height="50px">&nbsp;
+                    <strong>{{ c.name }}</strong> said:
+                    <p>&nbsp;&nbsp;&nbsp;{{ c.comment }}</p>
+                <small>On {{ c.datetime }}</small>
+                </p>
+            </div>
+            {% endfor %}
+            <hr>
+            <span class="FieldInfo">Share your thoughts about this post...</span>
+            <br><br><br>
+        </div>
+        <div>
+            <form action="{{ path_for('blogid.addcomment', {id: data.id}) }}" method="post" enctype="multipart/form-data">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="Name"><span class="FieldInfo"> Name: </span></label>
+                        <input class="form-control" type="text" name="Name", id="Name" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="Email"><span class="FieldInfo"> Email: </span></label>
+                        <input class="form-control" type="email" name="Email", id="Email" placeholder="someone@somehwere.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="commentarea"><span class="FieldInfo"> Comment: </span></label>
+                        <textarea class="form-control" name="Comment", id="commentarea"></textarea>
+                    </div>
+                </fieldset>
+                <br>
+                <input class="btn btn-primary" type="Submit" name="Submitted" value="Submit">
+            </form>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block panel %}
+    {% for cat in categories %}
+    <a href="{{ path_for('blog.search.title', {category: cat}) }}"><span id="heading">{{ cat }}</span></a>
+    <br>
+    {% endfor %}
+{% endblock %}
+
+{% block lastpostpanel %}
+    {% for i in last10 %}
+    <a href="{{ path_for('blogid.get', {id: i.id}) }}"><span id="heading">{{ i.title }}</span></a>
+    <br>
+    {% endfor %}
+{% endblock %}

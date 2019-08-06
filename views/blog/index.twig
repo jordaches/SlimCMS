@@ -1,0 +1,83 @@
+{% extends 'layouts/blogmain.twig' %}
+
+{% block title %}Blog Page{% endblock %}
+
+{% block body %}
+    <div class="col-sm-8">
+        <nav class="">
+            <ul class="pagination pagination-sm">
+                {% if currentpage == 1 %}
+                    <li class="disabled"><a href="#">&lsaquo;&lsaquo;</a></li>
+                {% else %}
+                    <li class=""><a href="{{ path_for('blog.pageindex',{page: currentpage - 1}) }}">&lsaquo;&lsaquo;</a></li>
+                {% endif %}
+                {% for page in 1..pages %}
+                    {% if currentpage == page %}
+                        <li class="active"><a href="{{ path_for('blog.pageindex',{page: page}) }}">{{ page }}</a></li>
+                    {% else %}
+                        <li><a href="{{ path_for('blog.pageindex',{page: page}) }}">{{ page }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if currentpage == pages %}
+                    <li class="disabled"><a href="#">&rsaquo;&rsaquo;</a></li>
+                {% else %}
+                    <li class=""><a href="{{ path_for('blog.pageindex',{page: currentpage + 1}) }}">&rsaquo;&rsaquo;</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% for d in data %}
+        <div class="blogpost thumbnail">
+            <img class='img-responsive img-rounded' src="{{ base_url() }}/public/assets/uploads/{{ d.image }}">
+            <div class="caption">
+                <h1 id="heading">{{ d.title }}</h1>
+                <p class="description">
+                    <strong>Category:</strong>
+                    {{ d.category }} |
+                    <strong>Published On:</strong> {{ d.datetime }} |
+                    <strong>Author: </strong>{{ d.author }}
+                </p>
+                <p class="post">
+                    {{ d.post [:20]}}...
+                </p>
+                <a href="#"><span class="btn btn-primary btn-sm" style="float: right;">Back to the top</span></a>
+                <a href="{{ path_for('blogid.get', {id: d.id}) }}"><span class="btn btn-info btn-sm pull-left">Read More &rsaquo;&rsaquo;</span></a>
+            </div>
+        </div>
+        {% endfor %}
+        <nav class="">
+            <ul class="pagination pagination-sm">
+                {% if currentpage == 1 %}
+                    <li class="disabled"><a href="#">&lsaquo;&lsaquo;</a></li>
+                {% else %}
+                    <li class=""><a href="{{ path_for('blog.pageindex',{page: currentpage - 1}) }}">&lsaquo;&lsaquo;</a></li>
+                {% endif %}
+                {% for page in 1..pages %}
+                    {% if currentpage == page %}
+                        <li class="active"><a href="{{ path_for('blog.pageindex',{page: page}) }}">{{ page }}</a></li>
+                    {% else %}
+                        <li><a href="{{ path_for('blog.pageindex',{page: page}) }}">{{ page }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if currentpage == pages %}
+                    <li class="disabled"><a href="#">&rsaquo;&rsaquo;</a></li>
+                {% else %}
+                    <li class=""><a href="{{ path_for('blog.pageindex',{page: currentpage + 1}) }}">&rsaquo;&rsaquo;</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+{% endblock %}
+
+{% block panel %}
+    {% for cat in categories %}
+        <a href="{{ path_for('blog.search.title', {category: cat}) }}"><span id="heading">{{ cat }}</span></a>
+        <br>
+    {% endfor %}
+{% endblock %}
+
+{% block lastpostpanel %}
+    {% for i in last10 %}
+        <a href="{{ path_for('blogid.get', {id: i.id}) }}"><span id="heading">{{ i.title }}</span></a>
+        <br>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'layouts/main.twig' %}
+
+{% block title %}DashBoard{% endblock %}
+
+{% block body %}
+
+
+<div class="col-sm-10">
+    <h1>Manage Comments</h1>
+    <div>
+
+    </div>
+    <h4>Unapproved Comments :-</h4>
+    <div>
+        <table class="table table-hover table-striped table-responsive">
+            <tr>
+                <th>No.</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Comment</th>
+                <th>Disapproved By</th>
+                <th>Actions</th>
+            </tr>
+            {% for d in disapproved %}
+            <tr>
+                <td>{{ d.id }}</td>
+                <td>{{ d.name }}</td>
+                <td>{{ d.datetime }}</td>
+                <td>{{ d.comment }}</td>
+                <td>{{ d.approvedby }}</td>
+                <td><a href="{{ path_for('comment.approve',{id: d.id }) }}"><span class="btn btn-success">Approve</span></a>
+                    <a href="{{ path_for('comment.delete', {id: d.id}) }}"><span class="btn btn-danger">Delete</span></a>
+                    <a href="{{ path_for('blogid.get', {id: d.admin_panel_id}) }}" target="_blank"><span class="btn btn-primary">Preview</span></a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <h4>Approved Comments :-</h4>
+    <div>
+        <table class="table table-hover table-striped table-responsive">
+            <tr>
+                <th>No.</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Comment</th>
+                <th>Approved By</th>
+                <th>Actions</th>
+                <!--
+                <th>Details</th> -->
+            </tr>
+            {% for a in approved %}
+            <tr>
+                <td>{{ a.id }}</td>
+                <td>{{ a.name }}</td>
+                <td>{{ a.datetime }}</td>
+                <td>{{ a.comment }}</td>
+                <td>{{ a.approvedby }}</td>
+                <td><a href="{{ path_for('comment.disaprove', {id: a.id}) }}"><span class="btn btn-warning">Disapprove</span></a>
+                    <a href="{{ path_for('comment.delete', {id: a.id}) }}"><span class="btn btn-danger">Delete</span></a>
+                    <a href="{{ path_for('blogid.get', {id: a.admin_panel_id}) }}" target="_blank"><span class="btn btn-primary">Preview</span></a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+{% block script %}
+    <script>
+        function showToast(type,title,message) {
+            toastr[type](`${message}`, `${title}`);
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": true,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": close(),
+                "showDuration": "0",
+                "hideDuration": "0",
+                "timeOut": "0",
+                "extendedTimeOut": "0",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
+        {% for e in messages.error %}
+        showToast('error', '', '{{ e }}');
+        {% endfor %}
+        {% for s in messages.success %}
+        showToast('success', '', '{{ s }}');
+        {% endfor %}
+        //showToast('warning', '', 'This is some messagre');
+
+        $(document).ready(function(){
+            $("#comments").addClass("active");
+        });
+
+    </script>
+{% endblock %}

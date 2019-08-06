@@ -1,0 +1,95 @@
+{# Default layout#}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ base_url() }}/public/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ base_url() }}/public/assets/css/custom.css">
+    <link rel="stylesheet" href="{{ base_url() }}/public/assets/plugins/toastr/css/toastr.min.css">
+    <link rel="stylesheet" href="{{ base_url() }}/public/assets/plugins/parsley/css/parsley.css">
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+<div style="height: 10px; background-image: linear-gradient(#27AAE1,white);">
+</div>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse">
+                <!-- This creates the button on collapse -->
+                <span class="sr-only">Toggle Navigation</span>
+                <span class="glyphicon icon-bar"></span>
+                <span class="glyphicon icon-bar"></span>
+                <span class="glyphicon icon-bar"></span>
+                <span class="glyphicon icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="Blog.php">
+                <img style="margin-top: -15px;" src="{{ base_url() }}/public/assets/images/ExchangeSA.PNG" width="180">
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="collapse"> <!-- These are the items to collapse -->
+            <ul class="nav navbar-nav">
+                <li><a href="#">&nbsp;Home</a></li>
+                <li><a href="{{ path_for('blog.index') }}" target="_blank">&nbsp;Blog</a></li>
+                <li><a href="#">&nbsp;About Us</a></li>
+                <li><a href="#">&nbsp;Services</a></li>
+                <li><a href="#">&nbsp;Contact Us</a></li>
+                <li><a href="#">&nbsp;Feature</a></li>
+            </ul>
+            <form action="Blog.php" class="navbar-form navbar-right">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Look for a post" name="Search">
+                </div>
+                <button class="btn btn-default" name="SearchButton">Go</button>
+            </form>
+        </div> <!-- End collapsable items -->
+    </div>
+</nav> <!-- Nav Bar End-->
+<div style="height: 10px; margin-top: -20px; background-image: linear-gradient(white,#27AAE1);">
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2">
+            <br><br>
+            <ul id="sidemenu" class="nav nav-pills nav-stacked">
+                <li id="dashboard"><a href="{{ path_for('dashboard.index') }}"><span class="glyphicon glyphicon-th"></span>&nbsp;DashBoard</a></li>
+                <li id="addpost"><a href="{{ path_for('dashboard.add.get') }}"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Add New Post</a></li>
+                <li id="categories"><a href="{{ path_for('categories.index') }}"><span class="glyphicon glyphicon-ruble"></span>&nbsp;Categories</a></li>
+                <li id="admins"><a href="{{ path_for('admins.index') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Manage Admins</a></li>
+                <li id="comments"><a href="{{ path_for('comment.index') }}"><span class="glyphicon glyphicon-comment"></span>&nbsp;Comments <span class="pull-right label label-warning"><?php echo $val; ?></span></a></li>
+                <li><a href="{{ path_for('blog.index') }}" target="_blank"><span class="glyphicon glyphicon-equalizer"></span>&nbsp;Live Blog</a></li>
+                <li id="logout"><a href="{{ path_for('auth.logout') }}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
+            </ul>
+        </div> <!-- col-sm-2 End -->
+        {% block body %} <!-- col-sm-10 End -->
+        {% endblock %}
+    </div><!-- row End -->
+</div> <!-- Container Fluid End -->
+<br>
+<div style="height: 1.5em; background: #27AAE1"> <!-- Pretty Footer Blue -->
+    <div id="footer" style="padding: 20px 20px 0px;">
+        <hr>
+        <p>
+            Copyright Exchange SA&trade; | &copy; 2019 --- All rights reserved.
+        </p>
+        <a style="color: white; text-decoration: none;cursor: pointer; font-weight: bolder" href="#">Test</a>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus iure laudantium neque reiciendis? Facilis in Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, tempora. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, fugit.
+        </p>
+        <hr>
+    </div> <!-- End of Footer-->
+    <div style="height: 1.5em; background: #27AAE1">
+
+    </div>
+</div><!-- Pretty Footer Blue -->
+<script src="{{ base_url() }}/public/assets/js/jquery-3.2.1.min.js"></script>
+<script src="{{ base_url() }}/public/assets/js/bootstrap.min.js"></script>
+<script src="{{ base_url() }}/public/assets/plugins/toastr/js/toastr.min.js"></script>
+<script src="{{ base_url() }}/public/assets/plugins/parsley/js/parsley.js"></script>
+{% block script %}
+{% endblock %}
+</body>
+</html>

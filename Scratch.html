@@ -1,0 +1,152 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css"></link>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Admin | DashBoard</title>
+</head>
+<body>
+<div style="height: 10px; background-image: linear-gradient(#27AAE1,white);">
+</div>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse">
+                <!-- This creates the button on collapse -->
+                <span class="sr-only">Toggle Navigation</span>
+                <span class="glyphicon icon-bar"></span>
+                <span class="glyphicon icon-bar"></span>
+                <span class="glyphicon icon-bar"></span>
+                <span class="glyphicon icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="Blog.php">
+                <img style="margin-top: -15px;" src="Images/ExchangeSA.PNG" width="180">
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="collapse"> <!-- These are the items to collapse -->
+            <ul class="nav navbar-nav">
+                <li><a href="#">&nbsp;Home</a></li>
+                <li><a href="Blog.php" target="_blank">&nbsp;Blog</a></li>
+                <li><a href="#">&nbsp;About Us</a></li>
+                <li><a href="#">&nbsp;Services</a></li>
+                <li><a href="#">&nbsp;Contact Us</a></li>
+                <li><a href="#">&nbsp;Feature</a></li>
+            </ul>
+            <form action="Blog.php" class="navbar-form navbar-right">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Look for a post" name="Search">
+                </div>
+                <button class="btn btn-default" name="SearchButton">Go</button>
+            </form>
+        </div> <!-- End collapsable items -->
+    </div>
+</nav> <!-- Nav Bar End-->
+<div style="height: 10px; margin-top: -20px; background-image: linear-gradient(white,#27AAE1);">
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2">
+            <br><br>
+            <ul id="sidemenu" class="nav nav-pills nav-stacked">
+                <li><a href="DashBoard.php"><span class="glyphicon glyphicon-th"></span>&nbsp;DashBoard</a></li>
+                <li><a href="AddNewPost.php"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Add New Post</a></li>
+                <li><a href="Categories.php"><span class="glyphicon glyphicon-ruble"></span>&nbsp;Categories</a></li>
+                <li><a href="Admins.php"><span class="glyphicon glyphicon-user"></span>&nbsp;Manage Admins</a></li>
+                <li class="active"><a href="Comments.php"><span class="glyphicon glyphicon-comment"></span>&nbsp;Comments <span class="pull-right label label-warning">2</span></a></li>
+                <li><a href="Blog.php" target="_blank"><span class="glyphicon glyphicon-equalizer"></span>&nbsp;Live Blog</a></li>
+                <li><a href="Logout.php?action=logout"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
+            </ul>
+        </div> <!-- col-sm-2 End -->
+        <div class="col-sm-10">
+            <h1>Manage Comments</h1>
+            <div>
+
+            </div>
+            <h4>Unapproved Comments :-</h4>
+            <div>
+                <table class="table table-hover table-striped table-responsive">
+                    <tr>
+                        <th>No.</th>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Comment</th>
+                        <th>Disapproved By</th>
+                        <th>Actions</th>
+
+
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Jordach Singh</td>
+                        <td>2019-08-01</td>
+                        <td>Adding comment</td>
+                        <td></td>
+                        <td><a href="Comments.php?id=23&status=On"><span class="btn btn-success"">Approve</span></a>
+                            <a href="Comments.php?id=23&status=Delete"><span class="btn btn-danger" >Delete</span></a>
+                            <a href="FullPost.php?id=49" target="_blank"><span class="btn btn-primary">Preview</span></a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jordach Singh</td>
+                        <td>2019-08-01</td>
+                        <td>Adding another comment2</td>
+                        <td></td>
+                        <td><a href="Comments.php?id=24&status=On"><span class="btn btn-success"">Approve</span></a>
+                            <a href="Comments.php?id=24&status=Delete"><span class="btn btn-danger" >Delete</span></a>
+                            <a href="FullPost.php?id=46" target="_blank"><span class="btn btn-primary">Preview</span></a></td>
+                    </tr>
+                </table>
+            </div>
+            <h4>Approved Comments :-</h4>
+            <div>
+                <table class="table table-hover table-striped table-responsive">
+                    <tr>
+                        <th>No.</th>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Comment</th>
+                        <th>Approved By</th>
+                        <th>Actions</th>
+                        <!--
+                        <th>Details</th> -->
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Jordach Singh</td>
+                        <td>2019-08-01</td>
+                        <td>adad</td>
+                        <td>Jordach Singh</td>
+                        <td><a href="Comments.php?id=22&status=Off"><span class="btn btn-warning">Disapprove</span></a>
+                            <a href="Comments.php?id=22&status=Delete"><span class="btn btn-danger">Delete</span></a>
+                            <a href="FullPost.php?id=46" target="_blank"><span class="btn btn-primary">Preview</span></a></td>
+                    </tr>
+                </table>
+            </div>
+        </div> <!-- col-sm-10 End -->
+    </div><!-- row End -->
+</div> <!-- Container Fluid End -->
+<div style="margin-top: 80px; height: 1.5em; background: #27AAE1"></div> <!-- Pretty Footer Blue -->
+<div id="footer"">
+<hr>
+<p>
+    Copyright Exchange SA&trade; | &copy; 2019 --- All rights reserved.
+</p>
+<a style="color: white; text-decoration: none;cursor: pointer; font-weight: bolder" href="https://www.exchangesa.co.za" target="_blank"></a>
+<p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus iure laudantium neque reiciendis? Facilis in Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, tempora. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, fugit.
+</p>
+<hr>
+</div> <!-- End of Footer-->
+<div style="height: 1.5em; background: #27AAE1"> <!-- Pretty Footer Blue -->
+</div>
+</body>
+</html>
+
+
+
+<!-- -->

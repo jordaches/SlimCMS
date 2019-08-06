@@ -1,0 +1,111 @@
+{% extends 'layouts/main.twig' %}
+
+{% block title %}
+{% endblock %}
+
+{% block head %}
+    <style>
+       .form-signin {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
+        .form-signin .checkbox {
+            font-weight: 400;
+        }
+        .form-signin .form-control {
+            position: relative;
+            box-sizing: border-box;
+            height: auto;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+        .form-signin input[type="email"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+        h3{
+            !important;color: #337ab7;
+            margin-bottom: 1.2em;
+        }
+        img{
+            margin-top: 1.2em;
+        }
+
+    </style>
+{% endblock %}
+
+
+{% block body %}
+    <div class="col-sm-4 col-sm-offset-2 text-center">
+        <form class="form-signin" action="{{ path_for('auth.login') }}" method="post">
+            <img class="mb-4 img-rounded" src="{{ base_url() }}/public/assets/images/ExchangeSA.PNG" alt="" height="50">
+            <h3 class="mb-3 font-weight-normal ">Please sign in</h3>
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+            <div class="checkbox mb-3">
+                <label>
+                    <input class="hidden" type="checkbox" value="remember-me"><!-- Remember me-->
+                </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+        $(document).on("click", ".reset", function() {
+            var ids = $(this).attr('data-id'); //Get value from 'data-id'
+            $("#userid").val(ids); // Set value of id:userid to val(ids)
+            var name = $(this).attr('data-id2'); //Get value from 'val'
+            $("#test").val(name); // Set value of id:userid to val(ids)
+        });
+
+        function showToast(type,title,message) {
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-bottom-full-width",
+                "preventDuplicates": false,
+                "onclick": close(),
+                "showDuration": "0",
+                "hideDuration": "0",
+                "timeOut": "0",
+                "extendedTimeOut": "0",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+            toastr[type](`${message}`, `${title}`);
+
+        }
+        {% for e in messages.error %}
+        showToast('error', '', '{{ e }}');
+        {% endfor %}
+        {% for s in messages.success %}
+        showToast('success', '', '{{ s }}');
+        {% endfor %}
+        //showToast('warning', '', 'This is some messagre');
+
+        $(document).ready(function(){
+            $("#logout").addClass("active");
+        });
+    </script>
+{% endblock%}
