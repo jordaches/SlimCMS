@@ -5,6 +5,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Workspace\Controllers\AdminUsers;
 use Workspace\Controllers\Blog;
+use Workspace\Controllers\BlogV2;
 use Workspace\Controllers\Dashboard;
 use Workspace\Controllers\Categories;
 use Workspace\Controllers\Comment;
@@ -65,16 +66,8 @@ $app->get('/{id}', Blog::class . ':fullpostAction')->setName('blogid.get');//Don
 $app->post('/{id}', Blog::class . ':addcommentAction')->setName('blogid.addcomment');//Done / Paginate
 
 $app->group('/blog', function (){
-    $this->get('/home/index[/{page}]',function ($req,$res,$args){
-        Helpers::DebugDie($args);
-    })->setName('home.index');
-    $this->get('/home/post/{id}',function ($req,$res,$args){
-        Helpers::DebugDie($args);
-    })->setName('home.index');
-    $this->get('/search/{term}[/{page}]',function ($req,$res,$args){
-        Helpers::DebugDie($args);
-    })->setName('search.index');
-    $this->get('/categories/{category}[/{page}]',function ($req,$res,$args){
-        Helpers::DebugDie($args);
-    })->setName('search.index');
+    $this->get('/home/index[/{page}]', BlogV2::class . ':indexAction')->setName('home.index');
+    $this->get('/home/post/{id}', BlogV2::class . ':postAction')->setName('home.index');
+    $this->get('/search/{term}[/{page}]', BlogV2::class . ':searchAction')->setName('search.index');
+    $this->get('/categories/{category}[/{page}]', BlogV2::class . ':categoriesAction')->setName('search.index');
 });
