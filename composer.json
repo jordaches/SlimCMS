@@ -2,7 +2,7 @@
     "require": {
         "slim/slim": "^3.12",
         "slim/twig-view": "^2.5",
-        "catfan/medoo": "^1.7.5",
+        "catfan/medoo": "1.7.5",
         "delight-im/auth": "^8.1",
         "kanellov/slim-twig-flash": "^0.2.0",
         "slim/flash": "^0.4.0",
